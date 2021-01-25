@@ -44,13 +44,17 @@ class IntSet
   end
 
   def insert(num)
+    return false if self.include?(num)
     self[num]<< num 
+    true
   end
 
   def remove(num)
+    self[num].delete(num) if self.include?(num)
   end
 
   def include?(num)
+    self[num].include?(num)
   end
 
   private
