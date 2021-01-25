@@ -78,14 +78,16 @@ class ResizingIntSet
   end
 
   def insert(num)
-      return if self.include?(num)
-      # check if all buckets are empty
-      #if self[num].empty? increase count by one
-      #if count >= num_buckets, then resize!
-      #self[num].push(num)
+    return if self.include?(num)
+    resize! if @count == num_buckets
+    @count+=1
+    self[num] << num  
   end
 
   def remove(num)
+    return unless self.include?(num)
+    self[num].delete(num) 
+    @count -= 1
   end
 
   def include?(num)
@@ -104,5 +106,9 @@ class ResizingIntSet
   end
 
   def resize!
+    new = @store.dup
+    @store = Array.new(num_buckets*2) {Array.new}
+    @count = 0
+    new.flatten.each {|num| insert(num) }
   end
 end
