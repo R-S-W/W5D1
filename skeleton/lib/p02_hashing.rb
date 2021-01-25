@@ -23,6 +23,15 @@ class Hash
   # This returns 0 because rspec will break if it returns nil
   # Make sure to implement an actual Hash#hash method
   def hash
-    0
+    h_arr =  []
+    self.each do |k,v|
+      # new_k = ( k.is_a?(String)  ? k.hash  : k )
+      new_k = k.to_s.hash  
+      v.is_a?(String) ? new_v = v.hash : new_v = v
+      h_arr << [new_k,new_v]
+    end
+    h_arr.map!(&:sum).sort.hash
+
+    
   end
 end
