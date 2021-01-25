@@ -78,17 +78,24 @@ class ResizingIntSet
   end
 
   def insert(num)
+      return if self.include?(num)
+      # check if all buckets are empty
+      #if self[num].empty? increase count by one
+      #if count >= num_buckets, then resize!
+      #self[num].push(num)
   end
 
   def remove(num)
   end
 
   def include?(num)
+    self[num].include?(num)
   end
 
   private
 
   def [](num)
+    @store[num % num_buckets]
     # optional but useful; return the bucket corresponding to `num`
   end
 
