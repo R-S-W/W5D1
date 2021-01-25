@@ -4,8 +4,10 @@ end
 
 class Array
   def hash
-
-    b_arr = self.map.with_index { |e, i| (e * 3**i).to_s(2).to_i }
+    #return 984570398475 + self.length if self.flatten.empty?
+    b_arr = self.map.with_index do |e, i|
+      e.is_a?(Array) ? e.hash : (e * 3**i).to_s(2).to_i
+    end
     b_sum = b_arr.inject { |acc, e| acc ^ e }.to_s
     b_sum.to_i(2)
   end
